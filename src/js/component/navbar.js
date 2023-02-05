@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import starImage from "../../img/starwars.png";
+import starImage from "../../img/image.png";
 import { Context } from "../store/appContext";
 
 export const Navbar = () => {
@@ -15,22 +15,13 @@ export const Navbar = () => {
         </span>
       </Link>
 
-      <div className="ml-auto">
-        <Link to="/demo">
-          <button className="btn btn-outline-warning">Favorites</button>
-        </Link>
-        <ul className="dropdown-menu">
-          {store.favorites.map((item, id) => (
-            <li key={id}>
-              <a
-                className="dropdown-item"
-                onClick={() => actions.addFavorites()}
-              >
-                {item} 
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div className={"dropdown d-flex float-end "} >
+  <button className="btn btn-lg btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Favoritos <div className="badge bg-secondary text-wrap">{store.favoritos.length}</div> 
+  </button>
+  <ul className="dropdown-menu" >
+  {store.favoritos.map((item, id) => <li className="dropdown-item float-start" key={id}>{item.name}<button type="button" className="btn border-0 float-end"  onClick={() => actions.deleteFavorites(item)}><i className="fa fa-trash"></i></button> </li>)}
+  </ul>
+</div>
     </nav>
   )}

@@ -5,7 +5,7 @@ const getState = ({
 }) => {
     return {
         store: {
-            // likesGuardados: [],
+            favoritos: [],
             personajes: [],
             planetas: [],
             vehiculos: [],
@@ -21,7 +21,7 @@ const getState = ({
                 getActions().changeColor(0, "green");
             },
 
-            getDetailpersonaje: (id) => {
+            getDetailCharacter: (id) => {
                 fetch("https://www.swapi.tech/api/people/" + id)
                     .then((response) => response.json())
                     .then((data) => setStore({
@@ -76,24 +76,22 @@ const getState = ({
                     }));
             },
 
-            // giveMeLikes: likes => {
-            //     const store = getStore();
-            //     setStore({
-            //         likesGuardados: [
-            //             ...store.likesGuardados,
-            //             likes
-            //         ]
-            //     });
-            // },
-
-            // dotLikeItAnymore: like => {
-            //     const store = getStore();
-            //     setStore({
-            //         likesGuardados: store.likesGuardados.filter((elemento) => elemento !== like)
-            //     })
-            //     console.log("hola")
-            // },
-
+            addFavorites: (item) =>{
+                const store = getStore();
+                if (store.favoritos.includes(item)) {
+                    getActions().deleteFavorites(item)
+            }else{
+                setStore({
+                    favoritos:[...store.favoritos,item]
+                })
+            }
+        },
+        deleteFavorites: (itemFavorite) => {
+            const store = getStore();
+            setStore({
+                favoritos: store.favoritos.filter((item)=>item!==itemFavorite)
+            })
+        },
             changeColor: (index, color) => {
                 //get the store
                 const store = getStore();

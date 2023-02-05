@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ScrollToTop from "./component/scrollToTop.jsx";
+import ScrollToTop from "./component/scrollToTop";
 // import { Single } from "./views/single";
 import { Home } from "./views/home.jsx";
-import { Demo } from "./views/demo.jsx";
-import { PersonajeDetail } from "./views/charactersDetails.jsx";
-import { PlanetaDetail } from "./views/planetsDetails.jsx";
-import { VehiculoDetail } from "./views/vehiclesDetails.jsx";
+import { Demo } from "./views/demo";
+import { PersonajeDetail } from "./views/personajesDetails.jsx";
+import { PlanetaDetail } from "./views/planetasDetails.jsx";
+import { VehiculoDetail } from "./views/vehiculosDetails.jsx";
 import injectContext from "./store/appContext";
-import { Navbar } from "./component/navbar.jsx";
-import { Footer } from "./component/footer.jsx";
+import { Navbar } from "./component/navbar";
+import { Footer } from "./component/footer";
 
 
 //create your first component

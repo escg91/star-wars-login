@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext.js";
-import { Personajes } from "../component/characters.jsx";
-import { Planetas } from "../component/planets.jsx";
-import { Vehiculos } from "../component/vehicles.jsx";
+import { Personajes } from "../component/personajes.jsx";
+import { Planetas } from "../component/planetas.jsx";
+import { Vehiculos } from "../component/vehiculos.jsx";
 
 export const Home = () => {
    const {store}=useContext(Context)
@@ -18,7 +18,7 @@ export const Home = () => {
       <div className="d-flex flex-row overflow-scroll">
         <div className="d-flex">
         {store.personajes.map((item, index) => {
-          return <Personajes key={index} name={item.name} id={item.uid} />;
+          return <Personajes key={index} name={item.name} id={item.uid} item={item} />;
         })}
         </div>
       </div>
@@ -27,7 +27,7 @@ export const Home = () => {
       <div className="d-flex flex-row overflow-scroll">
       <div className="d-flex">
         {store.planetas.map((item, index) => {
-          return <Planetas key={index} name={item.name} id={item.uid} />;
+          return <Planetas key={index} name={item.name} id={item.uid} item={item} />;
           
         })}
         </div>
@@ -37,7 +37,7 @@ export const Home = () => {
       <div className="d-flex flex-row overflow-scroll">
       <div className="d-flex">
         {store.vehiculos.map((item, index) => {
-          return <Vehiculos key={index} name={item.name} id={item.uid} />;
+          return <Vehiculos key={index} name={item.name} id={item.uid} item={item}  />;
           
         })}
      </div>

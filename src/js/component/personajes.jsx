@@ -2,15 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 
-export const Personajes = ({ name, id }) => {
-  const { store, actions } = useContext(Context);
-
+export const Personajes = (props) => {
+  const {store, actions}=useContext(Context)
+  let item=props.itemCard
   return (
     <div className="card m-1 bg-dark text-white" style={{ width: "18rem" }}>
       <img
         src={
           "https://starwars-visualguide.com/assets/img/characters/" +
-          id +
+          props.id +
           ".jpg"
         }
         className="card-img-top"
@@ -18,7 +18,7 @@ export const Personajes = ({ name, id }) => {
       />
       <div className="card-body">
         <div className="title">
-          <h5 className="card-title text-warning">{name}</h5>
+          <h5 className="card-title text-warning">{props.name}</h5>
         </div>
         <div className="text">
           <p className="card-text">
@@ -26,22 +26,17 @@ export const Personajes = ({ name, id }) => {
             bulk of the card's content.
           </p>
           <div className="footer mt-5">
-            <Link
-              to={"/personajesDetail/" + id}
-              className="btn btn-outline-warning"
-            >
-              Learn more!
-            </Link>
-
-            <button
-              className="btn btn-outline-warning float-end"
-              onClick={() => actions.addFavorites()}
-            >
-              💛
-            </button>
-          </div>
+          <Link
+            to={"/personajesDetail/" + props.id}
+            className="btn btn-outline-warning"
+          >
+           Ver mas!
+          </Link>
+    
+          <button className="btn btn-outline-warning float-end" onClick={()=> actions.addFavorites(props.item)} >💛</button>
         </div>
       </div>
+    </div>
     </div>
   );
 };
