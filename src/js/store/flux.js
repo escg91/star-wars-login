@@ -12,7 +12,7 @@ const getState = ({
             detailPersonaje: {},
             detailPlaneta: {},
             detailVehiculo: {},
-
+            usuariologueado: false
 
         },
         actions: {
@@ -76,22 +76,22 @@ const getState = ({
                     }));
             },
 
-            addFavorites: (item) =>{
+            addFavorites: (item) => {
                 const store = getStore();
                 if (store.favoritos.includes(item)) {
                     getActions().deleteFavorites(item)
-            }else{
+                } else {
+                    setStore({
+                        favoritos: [...store.favoritos, item]
+                    })
+                }
+            },
+            deleteFavorites: (itemFavorite) => {
+                const store = getStore();
                 setStore({
-                    favoritos:[...store.favoritos,item]
+                    favoritos: store.favoritos.filter((item) => item !== itemFavorite)
                 })
-            }
-        },
-        deleteFavorites: (itemFavorite) => {
-            const store = getStore();
-            setStore({
-                favoritos: store.favoritos.filter((item)=>item!==itemFavorite)
-            })
-        },
+            },
             changeColor: (index, color) => {
                 //get the store
                 const store = getStore();
@@ -107,6 +107,44 @@ const getState = ({
                 setStore({
                     demo: demo
                 });
+            },
+            login: (email, contraseña) => {
+                try {
+                    fetch('https://3000-escg91-starwarsapilogin-b224ik34gvm.ws-us85.gitpod.io/login', {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "email": email,
+                            "contraseña": contraseña
+
+                        })
+                    }).then((response) => {
+                        if (response.status === 200) {
+                            setStore({
+                                usuariologueado: true,
+
+                            })
+                        }
+                        return response.json()
+                    }).then((data) => {
+                        localStorage.setItem("token", data.access_token)
+                        if (data.msg === "Bad username or password" || data.msg === "User does not exist") {
+                            alert(data.msg)
+                        }
+                        console.log(data);
+                    });
+                } catch (e) {
+                    console.log(e);
+                }
+            },
+            cerrarsesion: () => {
+                localStorage.removeItem('token');
+                setStore({
+                    usuariologueado: false,
+
+                })
             }
         }
     };
