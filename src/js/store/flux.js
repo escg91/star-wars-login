@@ -139,6 +139,36 @@ const getState = ({
                     console.log(e);
                 }
             },
+            registro: (email, contraseña, nombre, apellido) => {
+                try {
+                    fetch('https://3000-escg91-starwarsapilogin-ue4y2fjirpi.ws-us85.gitpod.io/registro', {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "nombre": nombre,
+                            "apellido": apellido,
+                            "email": email,
+                            "contraseña": contraseña
+                        })
+                    }).then((response) => {
+                        if (response.status === 200) {
+                            alert("Usuario creado con exito!")
+                        }
+                        return response.json()
+                    }).then((data) => {
+                        if (data.msg === "User exist in the system") {
+                            alert(data.msg)
+                        }
+                        console.log(data);
+                    });
+                    //
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        },
             cerrarsesion: () => {
                 localStorage.removeItem('token');
                 setStore({
